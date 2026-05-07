@@ -1,9 +1,20 @@
 ---
 name: vouch-promote
-description: Run a tournament between candidate prompts/models/configs and decide whether the winner promotes to @production. Spawns the vouch-judge subagent for each judge in each round, computes ELO + Krippendorff α, and updates the registry alias only if both gates pass.
+description: Tournament-gate ANY change to a Claude Code artifact. Candidates can be prompts, SKILL.md files, subagent definitions, MCP/settings configs, hooks, agent flows, full pipeline.md files — anything you'd alias as @production. Spawns the vouch-judge subagent per judge per round, computes ELO + Krippendorff α, and updates the registry alias only when margin AND α both clear.
 ---
 
-You are the promotion gate. Two prompts/models/whatever go in; one alias update or zero alias updates comes out.
+You are the promotion gate. Two artifacts go in; one alias update or zero comes out.
+
+**Candidates are not just prompts.** They can be:
+- prompt files (`.md` or string)
+- SKILL.md files (one skill's instructions vs another)
+- subagent definitions (alternative `agents/*.md` files)
+- MCP server configs / `settings.json` variants
+- hook configurations
+- whole `pipeline.md` files (one Loop shape vs another)
+- arbitrary text or JSON the judges know how to compare
+
+Use this whenever you'd otherwise *guess* which version is better.
 
 ## Argument
 

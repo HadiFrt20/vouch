@@ -63,7 +63,7 @@ That's it. `setup` symlinks 7 skills into `~/.claude/skills/` and 3 subagents in
 | `/vouch-init` | Scaffold a new pipeline. Interview, write `pipeline.md`, seed state. |
 | `/vouch-run` | Execute the next pending stage. Re-runnable. Spawns `vouch-stage` subagents. |
 | `/vouch-verify` | Run the 4-mode adversary; attach verdicts; compute survival rate. |
-| `/vouch-promote` | Tournament between candidates; gate promotion on margin + Krippendorff α. |
+| `/vouch-promote` | Tournament-gate **any change** — prompts, skills, subagents, configs, hooks, whole pipelines. Promotion requires margin **and** Krippendorff α. |
 | `/vouch-witness` | Markdown checklist; severity-weighted score; follow-up questions. |
 | `/vouch-status` | Read-only dashboard. |
 | `/vouch-resume` | Pick up a failed run from where it stopped. |
@@ -103,16 +103,27 @@ That's it. `setup` symlinks 7 skills into `~/.claude/skills/` and 3 subagents in
 
 The verifier can't reach beyond what it can cite. *That single rule kills a class of bugs.*
 
-### 2. Promote prompts on evidence, not vibes
+### 2. Promote anything on evidence, not vibes
 
-```python
+Tournaments work for **any** Claude Code artifact you'd otherwise A/B by feel:
+
+| Comparing | Use it when |
+|---|---|
+| Two prompts | "v4 looks better than v3" — measure it |
+| Two `SKILL.md` files | Skill rewrite — does it actually behave better? |
+| Two subagent definitions | Alternative `agents/*.md` — which is more reliable? |
+| Two `settings.json` / MCP configs | Permission/hook trade-offs — which catches more bugs? |
+| Two whole `pipeline.md` files | Re-shape your Loop — which produces better outputs? |
+
+```text
 # tournament runs cheap → llm → cross-vendor judges with K=32 → 24 → 16
 # promotion requires:
-#     margin >= 50            # the winner is meaningfully ahead
+#     margin >= 50                  # the winner is meaningfully ahead
 #     krippendorff_alpha >= 0.667   # judges actually agree
 ```
 
-If v3 only "won" because one judge liked it, the α gate blocks promotion. **No more prompt drift by feel.**
+If v3 only "won" because one judge liked it, the α gate blocks promotion.
+**No more change drift by feel — for any artifact you ship.**
 
 ### 3. Fail soft, never half-mutated
 
@@ -172,7 +183,7 @@ Atomic debit invariant verified by a stress test: **400 parallel debits against 
 passed: 10   failed: 0   elapsed: 8s
 ```
 
-## 📦 Three example pipelines
+## 📦 Four example pipelines
 
 ```bash
 # A research pipeline with corpus-grounded adversary
@@ -182,12 +193,20 @@ bash tests/scenarios/scenario_research.sh
 # A prompt-vs-prompt tournament with mock judges
 python3 helpers/vouch_tournament.py run examples/prompt-promotion/tournament.json
 
+# A SKILL.md-vs-SKILL.md tournament — same protocol, different artifact
+python3 helpers/vouch_tournament.py run examples/skill-tournament/tournament.json
+
 # A markdown-driven intake checklist (edit the .md, follow-ups update)
 python3 helpers/vouch_witness.py evaluate \
     examples/intake-checklist/checklist.md \
     examples/intake-checklist/checks.json \
     examples/intake-checklist/sample-weak.json
 ```
+
+The skill-tournament example shows the α gate doing real work: when judges
+measure orthogonal things (`completion-quality` vs `latency-fit`), it
+**refuses to promote** even though one candidate has the highest ELO.
+That's not a bug — that's the discipline.
 
 ## 🧠 The discipline
 

@@ -1,0 +1,42 @@
+{
+  "_comment": "Tournament between two candidate SKILL.md files for a hypothetical /summarize skill. v_terse is permissive (3 lines max). v_strict requires citation. v_chain is the same as v_strict plus a 'think first, then write' chain-of-thought directive. Judges score on different criteria; the tournament decides which deserves @production.",
+  "candidates": ["v_terse", "v_strict", "v_chain"],
+  "starting_rating": 1200,
+  "promotion_margin": 50,
+  "alpha_threshold": 0.5,
+  "rounds": [
+    {
+      "name": "static",
+      "k": 32,
+      "matches": [
+        {"a": "v_terse",  "b": "v_strict", "judge": "structure-check",  "winner": "b", "rationale": "v_strict has 'cite' + format spec"},
+        {"a": "v_terse",  "b": "v_chain",  "judge": "structure-check",  "winner": "b", "rationale": "v_chain has cite + think-first"},
+        {"a": "v_strict", "b": "v_chain",  "judge": "structure-check",  "winner": "b", "rationale": "v_chain has more rules"},
+        {"a": "v_terse",  "b": "v_strict", "judge": "injection-check",  "winner": "b", "rationale": "v_strict has prompt-injection guard"},
+        {"a": "v_terse",  "b": "v_chain",  "judge": "injection-check",  "winner": "b", "rationale": "v_chain inherits v_strict's guard"},
+        {"a": "v_strict", "b": "v_chain",  "judge": "injection-check",  "winner": "draw", "rationale": "same guard"}
+      ]
+    },
+    {
+      "name": "behavioural",
+      "k": 24,
+      "matches": [
+        {"a": "v_terse",  "b": "v_strict", "judge": "completion-quality", "winner": "b", "rationale": "v_strict's outputs answer the prompt; v_terse cuts off"},
+        {"a": "v_terse",  "b": "v_chain",  "judge": "completion-quality", "winner": "b", "rationale": "v_chain reasons before writing"},
+        {"a": "v_strict", "b": "v_chain",  "judge": "completion-quality", "winner": "b", "rationale": "v_chain's CoT step yields better summaries"},
+        {"a": "v_terse",  "b": "v_strict", "judge": "latency-fit",         "winner": "a", "rationale": "v_terse is fastest"},
+        {"a": "v_terse",  "b": "v_chain",  "judge": "latency-fit",         "winner": "a", "rationale": "v_chain's CoT slows it"},
+        {"a": "v_strict", "b": "v_chain",  "judge": "latency-fit",         "winner": "a", "rationale": "v_strict avoids CoT overhead"}
+      ]
+    },
+    {
+      "name": "cross-eval",
+      "k": 16,
+      "matches": [
+        {"a": "v_terse",  "b": "v_strict", "judge": "cross-vendor-eval", "winner": "b", "rationale": "v_strict more portable across model families"},
+        {"a": "v_terse",  "b": "v_chain",  "judge": "cross-vendor-eval", "winner": "b", "rationale": "v_chain CoT survives cross-model"},
+        {"a": "v_strict", "b": "v_chain",  "judge": "cross-vendor-eval", "winner": "b", "rationale": "CoT helps weaker model families more"}
+      ]
+    }
+  ]
+}
