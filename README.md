@@ -5,7 +5,7 @@
 ### Pre-flight checks for AI agents.
 
 **Stage. Verify. Promote.**
-Every claim earns its quote. Every prompt earns its place. Every dollar gets debited atomically.
+Every claim earns its quote. Every change earns its place. Every dollar gets debited atomically.
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-black.svg?style=flat-square)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-black.svg?style=flat-square)](https://www.python.org)
@@ -23,7 +23,7 @@ Every claim earns its quote. Every prompt earns its place. Every dollar gets deb
 
 Your agent shipped a recommendation last quarter. Six weeks later someone asks **"where did this number come from?"** Nobody knows.
 
-Your team promoted prompt v3 because *it looked better.* It quietly regressed. Now nobody is sure which version is in production, or why.
+Your team promoted v3 of *something* — a prompt, a SKILL.md, a subagent, a settings.json — because *it looked better.* It quietly regressed. Now nobody is sure which version is in production, or why.
 
 Your scheduled agent rate-limited mid-run, crashed, left customer state half-mutated. The retry can't tell what was already done.
 
@@ -34,7 +34,7 @@ Your scheduled agent rate-limited mid-run, crashed, left customer state half-mut
 ```bash
 /vouch-init    .          # scaffold a pipeline
 /vouch-run     .          # stages run; claims get verdicts; budget debits atomically
-/vouch-promote spec.md    # tournament + α-gate before any prompt becomes @production
+/vouch-promote spec.md    # tournament + α-gate before any artifact becomes @production
 /vouch-witness checklist.md checks.json target.json   # markdown-driven follow-up questions
 ```
 
