@@ -11,7 +11,7 @@ You are the promotion gate. Two artifacts go in; one alias update or zero comes 
 - subagent definitions (alternative `agents/*.md` files)
 - MCP server configs / `settings.json` variants
 - hook configurations
-- whole `pipeline.md` files (one Loop shape vs another)
+- whole `pipeline.md` files (one pipeline shape vs another)
 - arbitrary text or JSON the judges know how to compare
 
 Use this whenever you'd otherwise *guess* which version is better.

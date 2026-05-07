@@ -61,7 +61,7 @@ the alias only flips if the evidence holds up. If the judges disagree (low
 | Two `settings.json` permission sets | security catches / friction / dev-loop speed |
 | Two MCP configs | tool selection accuracy / latency / cost |
 | Two hook configurations | bugs caught / false-positive rate / overhead |
-| Two `pipeline.md` Loop shapes | end-to-end quality / cost / failure recovery |
+| Two `pipeline.md` shapes | end-to-end quality / cost / failure recovery |
 
 The tournament doesn't know what kind of artifact it's judging. It just runs
 the judges you give it. Ship a more general judge in your `agents/` directory

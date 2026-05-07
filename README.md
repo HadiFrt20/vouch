@@ -113,7 +113,7 @@ Tournaments work for **any** Claude Code artifact you'd otherwise A/B by feel:
 | Two `SKILL.md` files | Skill rewrite — does it actually behave better? |
 | Two subagent definitions | Alternative `agents/*.md` — which is more reliable? |
 | Two `settings.json` / MCP configs | Permission/hook trade-offs — which catches more bugs? |
-| Two whole `pipeline.md` files | Re-shape your Loop — which produces better outputs? |
+| Two whole `pipeline.md` files | Re-shape your pipeline — which produces better outputs? |
 
 ```text
 # tournament runs cheap → llm → cross-vendor judges with K=32 → 24 → 16
@@ -213,7 +213,7 @@ That's not a bug — that's the discipline.
 > Every artifact your agent emits should arrive with a witness.
 > Not as documentation. Not as a logging line. As a primitive.
 
-vouch makes the witness primitive. The Loop runs your stages; the Adversary attaches verdicts to anything you mark as a Claim; the Budget deducts atomically; the Tournament blocks promotions when judges disagree. **Compose them in whatever shape your problem needs.**
+vouch makes the witness primitive. `/vouch-run` advances your stages; the adversary attaches verdicts to anything you mark as a claim; the budget deducts atomically; the tournament blocks promotions when judges disagree. **Compose them in whatever shape your problem needs.**
 
 ## 🛣 Status & roadmap
 

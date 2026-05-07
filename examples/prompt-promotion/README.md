@@ -4,6 +4,10 @@ A tournament between three summariser prompts. Three rounds: cheap heuristic,
 LLM-quality, cross-vendor. The `tournament.json` is what `/vouch-promote`
 would produce after spawning the `vouch-judge` subagent for each pair × judge.
 
+> **See also:** `examples/skill-tournament/` runs the *same protocol* against
+> three candidate `SKILL.md` files instead of prompts — to demonstrate that
+> `/vouch-promote` is general over any artifact, not specifically prompt-shaped.
+
 ## Run it (driver, no Claude)
 
 ```bash

@@ -46,7 +46,7 @@ recognised shapes:
 
 ### 1. Plain result
 
-Anything serialisable. The Loop just stores it on the phase.
+Anything serialisable. The runner stores it on the phase.
 
 ```json
 {"summary": "produced X bullets", "n_records": 42}
