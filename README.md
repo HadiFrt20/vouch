@@ -21,13 +21,13 @@ Every claim earns its quote. Every change earns its place. Every dollar gets deb
 
 ## ⚠️ The problem
 
-Your agent shipped a recommendation last quarter. Six weeks later someone asks **"where did this number come from?"** Nobody knows.
+You rewrote a `SKILL.md`, a subagent, or a prompt last sprint. The outputs *feel* different now. Nobody can tell if it's actually better, just that it *changed*.
 
-Your team promoted v3 of *something* — a prompt, a SKILL.md, a subagent, a settings.json — because *it looked better.* It quietly regressed. Now nobody is sure which version is in production, or why.
+A skill of yours ships claims with citations. Open one of last quarter's runs — half the citations don't link to anything verifiable. There's no record of why the model picked them.
 
-Your scheduled agent rate-limited mid-run, crashed, left customer state half-mutated. The retry can't tell what was already done.
+Your nightly Claude Code routine burned through tokens and stopped halfway. The state is half-mutated; the next run can't tell what already finished and what didn't.
 
-**You've reinvented the audit trail. Three times. Badly.**
+You've solved each of these — badly — in three different side projects. **Each time you wrote your own audit trail from scratch.**
 
 ## ✨ The fix
 
@@ -214,18 +214,6 @@ That's not a bug — that's the discipline.
 > Not as documentation. Not as a logging line. As a primitive.
 
 vouch makes the witness primitive. The Loop runs your stages; the Adversary attaches verdicts to anything you mark as a Claim; the Budget deducts atomically; the Tournament blocks promotions when judges disagree. **Compose them in whatever shape your problem needs.**
-
-## 🆚 Comparable to
-
-| | Provenance | Adversary | Atomic budget | Tournament promotion | Markdown-driven |
-|---|:-:|:-:|:-:|:-:|:-:|
-| LangChain callbacks | Logs | ✗ | ✗ | ✗ | ✗ |
-| LangSmith | ✓ | ✗ | ✗ | ✗ | ✗ |
-| MLflow Tracing | ✓ | ✗ | ✗ | ✗ | ✗ |
-| DSPy optimizers | ✗ | ✗ | ✗ | Implicit | ✗ |
-| **vouch** | **✓** | **✓** | **✓** | **✓** | **✓** |
-
-Different layer. Use vouch *with* whichever runtime you already have — it's a discipline, not a runtime.
 
 ## 🛣 Status & roadmap
 
