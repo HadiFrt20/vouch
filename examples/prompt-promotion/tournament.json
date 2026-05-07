@@ -1,0 +1,38 @@
+{
+  "candidates": ["v1", "v2", "v3"],
+  "starting_rating": 1200,
+  "promotion_margin": 50,
+  "alpha_threshold": 0.5,
+  "rounds": [
+    {
+      "name": "cheap",
+      "k": 32,
+      "matches": [
+        {"a": "v1", "b": "v2", "judge": "length",    "winner": "b", "rationale": "v2 is 3x longer, more specific"},
+        {"a": "v1", "b": "v2", "judge": "structure", "winner": "b", "rationale": "v2 has explicit count + cite"},
+        {"a": "v1", "b": "v3", "judge": "length",    "winner": "a", "rationale": "v3 is too short"},
+        {"a": "v1", "b": "v3", "judge": "structure", "winner": "a", "rationale": "v3 has no structure"},
+        {"a": "v2", "b": "v3", "judge": "length",    "winner": "a", "rationale": "v2 substantially longer"},
+        {"a": "v2", "b": "v3", "judge": "structure", "winner": "a", "rationale": "v2 demands citations"}
+      ]
+    },
+    {
+      "name": "llm",
+      "k": 24,
+      "matches": [
+        {"a": "v1", "b": "v2", "judge": "llm-quality", "winner": "b", "rationale": "v2 forces grounding"},
+        {"a": "v1", "b": "v3", "judge": "llm-quality", "winner": "a", "rationale": "v3 is too vague"},
+        {"a": "v2", "b": "v3", "judge": "llm-quality", "winner": "a", "rationale": "v2 will produce useful output"}
+      ]
+    },
+    {
+      "name": "cross",
+      "k": 16,
+      "matches": [
+        {"a": "v1", "b": "v2", "judge": "cross-vendor", "winner": "b", "rationale": "explicit length cap"},
+        {"a": "v1", "b": "v3", "judge": "cross-vendor", "winner": "draw", "rationale": "both ambiguous"},
+        {"a": "v2", "b": "v3", "judge": "cross-vendor", "winner": "a", "rationale": "explicit length cap"}
+      ]
+    }
+  ]
+}

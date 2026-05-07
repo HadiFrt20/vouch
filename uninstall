@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# vouch — uninstall (remove symlinks, leave repo and helpers in place)
+set -euo pipefail
+
+CLAUDE_DIR="${HOME}/.claude"
+
+for skill in vouch-init vouch-run vouch-verify vouch-promote vouch-witness vouch-status vouch-resume; do
+    p="${CLAUDE_DIR}/skills/${skill}"
+    if [[ -L "${p}" ]]; then
+        rm "${p}"
+        echo "  ✗ removed skill: ${skill}"
+    fi
+done
+
+for agent in vouch-stage vouch-adversary vouch-judge; do
+    p="${CLAUDE_DIR}/agents/${agent}.md"
+    if [[ -L "${p}" ]]; then
+        rm "${p}"
+        echo "  ✗ removed agent: ${agent}"
+    fi
+done
+
+echo
+echo "Uninstalled. Repo unchanged."

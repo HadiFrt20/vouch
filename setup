@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# vouch — install Claude Code plugin via symlinks into ~/.claude/
+set -euo pipefail
+
+REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CLAUDE_DIR="${HOME}/.claude"
+SKILLS_DIR="${CLAUDE_DIR}/skills"
+AGENTS_DIR="${CLAUDE_DIR}/agents"
+
+mkdir -p "${SKILLS_DIR}" "${AGENTS_DIR}"
+
+echo "Installing vouch from: ${REPO_DIR}"
+echo
+
+# Skills (each is a directory; we symlink the directory)
+for skill in vouch-init vouch-run vouch-verify vouch-promote vouch-witness vouch-status vouch-resume; do
+    src="${REPO_DIR}/skills/${skill}"
+    dst="${SKILLS_DIR}/${skill}"
+    if [[ -e "${dst}" || -L "${dst}" ]]; then
+        # Refuse to clobber a non-symlink — that's the user's own thing
+        if [[ -L "${dst}" ]]; then
+            rm "${dst}"
+        else
+            echo "✗ refusing to overwrite ${dst} (not a symlink)" >&2
+            exit 1
+        fi
+    fi
+    ln -s "${src}" "${dst}"
+    echo "  ✓ skill: ${skill}"
+done
+
+echo
+
+# Subagents (single .md files)
+for agent in vouch-stage vouch-adversary vouch-judge; do
+    src="${REPO_DIR}/agents/${agent}.md"
+    dst="${AGENTS_DIR}/${agent}.md"
+    if [[ -e "${dst}" || -L "${dst}" ]]; then
+        if [[ -L "${dst}" ]]; then
+            rm "${dst}"
+        else
+            echo "✗ refusing to overwrite ${dst} (not a symlink)" >&2
+            exit 1
+        fi
+    fi
+    ln -s "${src}" "${dst}"
+    echo "  ✓ agent: ${agent}"
+done
+
+echo
+echo "Helpers stay in: ${REPO_DIR}/helpers/"
+echo "Skills locate them via the PLUGIN_DIR convention they describe."
+echo
+echo "Installed. Next: /vouch-init in any project directory."

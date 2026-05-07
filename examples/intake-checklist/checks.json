@@ -1,0 +1,58 @@
+[
+  {
+    "id": "problem",
+    "label": "Problem stated",
+    "severity": "critical",
+    "section": "Project Context",
+    "template_field_idx": 0,
+    "detect": {"kind": "field_present", "field": "problem", "min_length": 20}
+  },
+  {
+    "id": "pain_owner",
+    "label": "Pain owner identified",
+    "severity": "high",
+    "section": "Project Context",
+    "template_field_idx": 1,
+    "detect": {"kind": "field_present", "field": "pain_owner"}
+  },
+  {
+    "id": "measurement",
+    "label": "Measurement defined",
+    "severity": "high",
+    "section": "Project Context",
+    "template_field_idx": 2,
+    "detect": {
+      "kind": "contains_keyword",
+      "in_field": "measurement",
+      "any_of": "revenue|cost|risk|speed|latency|accuracy"
+    }
+  },
+  {
+    "id": "data_location",
+    "label": "Data location specified",
+    "severity": "critical",
+    "section": "Data Landscape",
+    "template_field_idx": 0,
+    "detect": {"kind": "field_present", "field": "data_location"}
+  },
+  {
+    "id": "freshness",
+    "label": "Freshness requirement",
+    "severity": "medium",
+    "section": "Data Landscape",
+    "template_field_idx": 1,
+    "detect": {
+      "kind": "regex",
+      "pattern": "real.?time|hourly|daily|streaming|near.?real",
+      "in_field": "freshness"
+    }
+  },
+  {
+    "id": "done",
+    "label": "Done criteria",
+    "severity": "critical",
+    "section": "Success Criteria",
+    "template_field_idx": 0,
+    "detect": {"kind": "field_present", "field": "done_criteria", "min_length": 10}
+  }
+]

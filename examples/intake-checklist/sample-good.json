@@ -1,0 +1,8 @@
+{
+  "problem": "Returns fraud is up 20% YoY in our French stores; manual review can't keep up and store associates are overriding genuine fraud signals.",
+  "pain_owner": "Store Operations VP",
+  "measurement": "cost reduction",
+  "data_location": "Postgres + S3",
+  "freshness": "near real-time",
+  "done_criteria": "p95 fraud catch rate >= 60% on labeled holdout, with override rate < 10%"
+}

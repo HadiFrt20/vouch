@@ -1,0 +1,59 @@
+{
+  "name": "vouch",
+  "version": "0.1.0",
+  "description": "Staged pipelines for AI agents — every artifact earns its way through verified stages. Adversary verification, atomic budgets, tournament-based prompt promotion, and markdown-driven witness checklists, all as Claude Code skills.",
+  "author": "vouch contributors",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/vouch-ai/vouch",
+  "skills": [
+    {
+      "name": "vouch-init",
+      "path": "skills/vouch-init/SKILL.md",
+      "trigger": "/vouch-init"
+    },
+    {
+      "name": "vouch-run",
+      "path": "skills/vouch-run/SKILL.md",
+      "trigger": "/vouch-run"
+    },
+    {
+      "name": "vouch-verify",
+      "path": "skills/vouch-verify/SKILL.md",
+      "trigger": "/vouch-verify"
+    },
+    {
+      "name": "vouch-promote",
+      "path": "skills/vouch-promote/SKILL.md",
+      "trigger": "/vouch-promote"
+    },
+    {
+      "name": "vouch-witness",
+      "path": "skills/vouch-witness/SKILL.md",
+      "trigger": "/vouch-witness"
+    },
+    {
+      "name": "vouch-status",
+      "path": "skills/vouch-status/SKILL.md",
+      "trigger": "/vouch-status"
+    },
+    {
+      "name": "vouch-resume",
+      "path": "skills/vouch-resume/SKILL.md",
+      "trigger": "/vouch-resume"
+    }
+  ],
+  "agents": [
+    {"name": "vouch-stage", "path": "agents/vouch-stage.md"},
+    {"name": "vouch-adversary", "path": "agents/vouch-adversary.md"},
+    {"name": "vouch-judge", "path": "agents/vouch-judge.md"}
+  ],
+  "helpers": [
+    "helpers/vouch_state.py",
+    "helpers/vouch_budget.py",
+    "helpers/vouch_tournament.py",
+    "helpers/vouch_witness.py"
+  ],
+  "requires": {
+    "python": ">=3.10"
+  }
+}

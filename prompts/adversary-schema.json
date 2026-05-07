@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "vouch adversary verdict",
+  "description": "Shape of one verified Claim emitted by the vouch-adversary subagent.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["text", "confidence", "verdict"],
+    "additionalProperties": false,
+    "properties": {
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "description": "The claim itself, unchanged from input."
+      },
+      "confidence": {
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "description": "Producer's prior confidence."
+      },
+      "verdict": {
+        "type": "string",
+        "enum": ["confirmed", "refuted", "weakened", "unverifiable", "pending"]
+      },
+      "confidence_delta": {
+        "type": "number",
+        "description": "Adjustment to confidence; must be negative when verdict=='weakened'."
+      },
+      "adversary_evidence": {
+        "type": ["string", "null"],
+        "description": "What the verifier found and used to decide."
+      },
+      "verification_mode": {
+        "type": ["string", "null"],
+        "enum": [
+          "source_verification",
+          "contradiction_search",
+          "cross_reference",
+          "temporal_check",
+          null
+        ]
+      },
+      "quote": {
+        "type": ["string", "null"],
+        "description": "Verbatim source quote. REQUIRED when verdict is 'refuted' or 'weakened'."
+      },
+      "source_url": {
+        "type": ["string", "null"]
+      }
+    },
+    "allOf": [
+      {
+        "if": {"properties": {"verdict": {"const": "refuted"}}},
+        "then": {"required": ["quote", "adversary_evidence"]}
+      },
+      {
+        "if": {"properties": {"verdict": {"const": "weakened"}}},
+        "then": {
+          "required": ["quote", "adversary_evidence", "confidence_delta"],
+          "properties": {"confidence_delta": {"exclusiveMaximum": 0}}
+        }
+      }
+    ]
+  }
+}
